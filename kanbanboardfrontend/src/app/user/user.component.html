@@ -1,0 +1,12 @@
+<div *ngIf="user">
+    <p> userId : {{user.userId}}</p>
+    <p> username : {{user.firstname}}</p>
+    <p> username : {{user.lastname}}</p>
+    <p> email : {{user.email}}</p>
+    <div *ngFor="let role of user.roles">
+        <p> role{{role.roleId}} : {{role.role}}</p>
+    </div>
+    <div *ngFor="let task of user.tasks">
+        <p> task{{task.id}} : {{task.content}}</p>
+    </div>
+</div>

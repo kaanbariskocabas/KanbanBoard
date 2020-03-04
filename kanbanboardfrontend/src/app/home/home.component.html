@@ -1,0 +1,71 @@
+<div class="container-fluid">
+    <div *ngIf="alert" class="row">
+        <ngb-alert style="width: 100%;" [type]="alert.type" (close)="close(alert)">
+            <mat-icon>info</mat-icon>
+            {{ alert.message }}
+        </ngb-alert>
+    </div>
+    <div *ngIf="showDetails" class="row">
+        <mat-card style="width: 100%;">
+            <app-task-detail [task]="selected"></app-task-detail>
+        </mat-card>
+    </div>
+    <div class="row">
+
+        <mat-card class="example-container">
+            <h2>To do</h2>
+
+            <div cdkDropList #todoList="cdkDropList" [cdkDropListData]="todo"
+                [cdkDropListConnectedTo]="[inProgressList, waitingList, doneList]" class="example-list"
+                (cdkDropListDropped)="drop($event, 'TODO')">
+                <div class="example-box" *ngFor="let item of todo" cdkDrag (dblclick)="onClick(item)">
+                    <!-- <button mat-icon-button matSuffix color="primary" aria-label="Example icon-button with a heart icon"
+                        (click)="onClick(item)">
+                        <mat-icon>edit</mat-icon>
+                    </button> -->
+                    <h3>{{item.title}}</h3>
+                    <p>{{item.content}}</p>
+                </div>
+            </div>
+        </mat-card>
+
+        <mat-card class="example-container">
+            <h2>In Progress</h2>
+
+            <div cdkDropList #inProgressList="cdkDropList" [cdkDropListData]="inprogress"
+                [cdkDropListConnectedTo]="[waitingList, doneList, todoList]" class="example-list"
+                (cdkDropListDropped)="drop($event, 'INPROGRESS')">
+                <div class="example-box" *ngFor="let item of inprogress" cdkDrag (dblclick)="onClick(item)">
+                    <h3>{{item.title}}</h3>
+                    <p>{{item.content}}</p>
+                </div>
+            </div>
+        </mat-card>
+
+        <mat-card class="example-container">
+            <h2>Waiting</h2>
+
+            <div cdkDropList #waitingList="cdkDropList" [cdkDropListData]="waiting"
+                [cdkDropListConnectedTo]="[inProgressList, doneList, todoList]" class="example-list"
+                (cdkDropListDropped)="drop($event, 'WAITING')">
+                <div class="example-box" *ngFor="let item of waiting" cdkDrag (dblclick)="onClick(item)">
+                    <h3>{{item.title}}</h3>
+                    <p>{{item.content}}</p>
+                </div>
+            </div>
+        </mat-card>
+
+        <mat-card class="example-container">
+            <h2>Done</h2>
+
+            <div cdkDropList #doneList="cdkDropList" [cdkDropListData]="done"
+                [cdkDropListConnectedTo]="[inProgressList, waitingList, todoList]" class="example-list"
+                (cdkDropListDropped)="drop($event, 'DONE')">
+                <div class="example-box" *ngFor="let item of done" cdkDrag (dblclick)="onClick(item)">
+                    <h3>{{item.title}}</h3>
+                    <p>{{item.content}}</p>
+                </div>
+            </div>
+        </mat-card>
+    </div>
+</div>
